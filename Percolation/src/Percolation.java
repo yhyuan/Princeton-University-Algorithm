@@ -11,7 +11,7 @@ public class Percolation {
         if (N <= 0) {
             throw new java.lang.IllegalArgumentException();
         }
-        uf = new WeightedQuickUnionUF(N*N + 1); // N*N is the virtual top
+        uf = new WeightedQuickUnionUF(N*N + 2); // N*N is the virtual top
         size = N;
         virtualTop = size*size;
         virtualBottom = virtualTop + 1;   
