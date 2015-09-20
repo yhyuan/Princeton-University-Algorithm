@@ -1,6 +1,5 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
-import java.nio.file.*;
-import java.io.*;
+
 
 public class Percolation {
     private boolean [][] grid;
@@ -12,7 +11,7 @@ public class Percolation {
         if (N <= 0) {
             throw new java.lang.IllegalArgumentException();
         }
-        uf = new WeightedQuickUnionUF(N*N + 2); // N*N is the virtual top, N*N + 1 is the virtual bottom. 
+        uf = new WeightedQuickUnionUF(N*N + 1); // N*N is the virtual top
         size = N;
         virtualTop = size*size;
         virtualBottom = virtualTop + 1;   
@@ -50,6 +49,7 @@ public class Percolation {
         if (i == 0) { //top row
             uf.union(index, virtualTop);
         }
+        
         if (i == size - 1) { //bottom row
             uf.union(index, virtualBottom);
         }
@@ -73,10 +73,6 @@ public class Percolation {
             return true;
         }
         int index = size * (i - 1) + (j - 1);
-        //System.out.println("isFull: " + uf.connected(virtualTop, index));
-        if (percolates()) {
-            return false;
-        }
         return uf.connected(virtualTop, index);
     }
 
@@ -86,7 +82,7 @@ public class Percolation {
         }
         return uf.connected(virtualTop, virtualBottom);
     }
-
+/*
     public static void main(String[] args) {
         if (args.length != 4)
         {
@@ -129,5 +125,5 @@ public class Percolation {
         } catch (IOException e) {
             System.out.println(e);
         }
-    }
+    }*/
 }
