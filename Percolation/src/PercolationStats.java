@@ -11,10 +11,7 @@ public class PercolationStats {
         if ((N <= 0) || (T <= 0)) {
             throw new java.lang.IllegalArgumentException();
         }
-        int Min = 1;
-        int Max = N;
         double [] thresholds = new double[T];
-//        double sumThreshold = 0;
         for (int m = 0; m < T; m++) {
             Percolation p = new Percolation(N);
             int openCount = 0;
@@ -23,8 +20,6 @@ public class PercolationStats {
                 int i = 0;
                 int j = 0;
                 while (open) {
-                    //i = Min + (int)(Math.random() * ((Max - Min) + 1));
-                    //j = Min + (int)(Math.random() * ((Max - Min) + 1));
                     i = StdRandom.uniform(N) + 1;
                     j = StdRandom.uniform(N) + 1;
                     open = p.isOpen(i, j);
@@ -33,22 +28,12 @@ public class PercolationStats {
                 openCount++;
             }
             thresholds[m] = openCount * 1.0 / (N*N);
-             
-  //          sumThreshold = sumThreshold + thresholds[m];
         }
         mean = StdStats.mean(thresholds);
         stddev = StdStats.stddev(thresholds);
         double interval = 1.96*stddev/Math.sqrt(T);
         confidenceHi = mean + interval;
         confidenceLo = mean - interval;
-        /*mean = sumThreshold/T;
-        double sqSum = 0;
-        for(int m=0; m<T; m++){
-            double diff = thresholds[m] - mean;
-            sqSum = sqSum  + diff*diff;
-        }
-        stddev = Math.sqrt(sqSum/(T-1));
-        */
     }
     public double mean() {                     // sample mean of percolation threshold
         return mean;
